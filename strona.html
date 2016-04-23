@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="test.css">
+	</head>
+	<body>
+		<script>
+			function highlight(name)
+			{
+				obj = document.getElementById(name)
+				obj.style.opacity = "1"
+				obj.style.width = "25%"
+			}
+
+			function fade(name)
+			{
+				obj = document.getElementById(name)
+				obj.style.opacity = "0.5"
+				obj.style.width = "20%"
+			}
+		</script>
+		<div class="main_body">
+			<div class="button" id="button1" style="position:absolute;top:20%;left:2.5%;height:75%;width:20%;background-color:red;opacity:0.5" onmouseover="highlight('button1')" onmouseout="fade('button1')">
+			</div>
+			<div class="button" id="button2" style="position:absolute;top:20%;left:25%;height:75%;width:20%;background-color:green;opacity:0.5" onmouseover="highlight('button2')" onmouseout="fade('button2')">
+			</div>
+			<div class="button" id="button3" style="position:absolute;top:20%;left:50%;height:75%;width:20%;background-color:blue;opacity:0.5" onmouseover="highlight('button3')" onmouseout="fade('button3')">
+			</div>
+			<div class="button" id="button4" style="position:absolute;top:20%;left:75%;height:75%;width:20%;background-color:yellow;opacity:0.5" onmouseover="highlight('button4')" onmouseout="fade('button4')">
+			</div>
+		</div>
+	</body>
+</html>

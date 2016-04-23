@@ -1,0 +1,3 @@
+.button {
+  transition: width 0.4s cubic-bezier(1,5,1,5);
+}
