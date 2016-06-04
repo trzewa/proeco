@@ -71,6 +71,45 @@ $sql->execute();
 if ($sql){ return true; } else return false;
 
 }
+
+public fuction insertBLOB($pdo,$tabName,$filesTable)
+{
+if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) 
+	{ 
+		$tmpName  = $_FILES['image']['tmp_name'];  
+
+		$fp = fopen($tmpName, 'rb'); // read binary
+	} 
+
+	try
+		{
+			$stmt = $pdo->prepare("INSERT INTO ".$tabName." ( picture ) VALUES ( ? )");
+			$stmt->bindParam(1, $fp, PDO::PARAM_LOB);
+			$pdo->errorInfo();
+			$stmt->execute();
+		}
+		catch(PDOException $e)
+		{
+			'Error : ' .$e->getMessage();
+		}
+	}
+public function selectBlob($pdo,$tableName,$id) {
+ 
+        $sql = "SELECT mime,
+                        data
+                   FROM "$tableName."
+                  WHERE id = :id;";
+ 
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(":id" => $id));
+        $stmt->bindColumn(1, $mime);
+        $stmt->bindColumn(2, $data, PDO::PARAM_LOB);
+ 
+        $stmt->fetch(PDO::FETCH_BOUND);
+ 
+        return array("mime" => $mime,
+            "data" => $data);
+    }
 //$pdo = CreateConnObj($dsn, $user, $pass, $opt);
 //$status = InsertData($pdo,'test',$value);
 //var_dump($status);
