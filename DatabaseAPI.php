@@ -95,20 +95,22 @@ if (isset($_FILES['image']) && $_FILES['image']['size'] > 0)
 	}
 public function selectBlob($pdo,$tableName,$id) {
  
-        $sql = "SELECT mime,
-                        data
+        $sql = "SELECT pict,
+                       nazwa,
+					   opis
                    FROM "$tableName."
                   WHERE id = :id;";
  
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(":id" => $id));
-        $stmt->bindColumn(1, $mime);
-        $stmt->bindColumn(2, $data, PDO::PARAM_LOB);
+        $stmt->bindColumn(1, $pict,PDO::PARAM_LOB);
+        $stmt->bindColumn(2, $nazwa);
+		$stmt->bindColumn(3, $opis);
  
         $stmt->fetch(PDO::FETCH_BOUND);
  
-        return array("mime" => $mime,
-            "data" => $data);
+        return array("pict" => $pict,
+            "nazwa" => $nazwa, "opis" => $opis);
     }
 //$pdo = CreateConnObj($dsn, $user, $pass, $opt);
 //$status = InsertData($pdo,'test',$value);
