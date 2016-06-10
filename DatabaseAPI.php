@@ -1,9 +1,9 @@
 <?php
 
 $host = '127.0.0.1';
-$db   = 'test';
-$user = 'root';
-$pass = '';
+$db   = 'aneu_proeco';
+$user = 'aneu_proeco';
+$pass = 'proeco';
 $charset = 'utf8';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -83,7 +83,7 @@ if (isset($_FILES['image']) && $_FILES['image']['size'] > 0)
 
 	try
 		{
-			$stmt = $pdo->prepare("INSERT INTO ".$tabName." ( picture ) VALUES ( ? )");
+			$stmt = $pdo->prepare("INSERT INTO Piktogramy ( picture ) VALUES ( ? )");
 			$stmt->bindParam(1, $fp, PDO::PARAM_LOB);
 			$pdo->errorInfo();
 			$stmt->execute();
@@ -93,12 +93,13 @@ if (isset($_FILES['image']) && $_FILES['image']['size'] > 0)
 			'Error : ' .$e->getMessage();
 		}
 	}
-public function selectBlob($pdo,$tableName,$id) {
+function selectBlob($pdo,$tableName,$id) {
  
-        $sql = "SELECT pict,
-                       nazwa,
+       $sql = "SELECT ID,
+                       pict,
+					   nazwa,
 					   opis
-                   FROM "$tableName."
+                   FROM Piktogramy
                   WHERE id = :id;";
  
         $stmt = $pdo->prepare($sql);
@@ -110,8 +111,21 @@ public function selectBlob($pdo,$tableName,$id) {
         $stmt->fetch(PDO::FETCH_BOUND);
  
         return array("pict" => $pict,
-            "nazwa" => $nazwa, "opis" => $opis);
+            "nazwa" => $nazwa,);
     }
+function selectBlobAl($pdo) {
+ 
+        $sql= "SELECT * FROM Piktogramy";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+        return $result;
+    }
+	
+//$pdo = CreateConnObj($dsn, $user, $pass, $opt);
+//$picture=selectBlob($pdo,'test',21);
+//header("Content-type: image/jpg");
+//echo $picture['pict'];
 //$pdo = CreateConnObj($dsn, $user, $pass, $opt);
 //$status = InsertData($pdo,'test',$value);
 //var_dump($status);
