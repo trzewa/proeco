@@ -4,6 +4,9 @@
 		<link rel="stylesheet" type="text/css" href="test.css">
 	</head>
 	<body>
+	<?
+	include 'polutions.php';
+	?>
 		<script>
 			function highlight(cls, name)
 			{
@@ -107,17 +110,21 @@
 		<div id="mainBody" style="width:100%;height:100%;">
 		
 			<div class="button" id="button1" style="left:0.5%;">
-			<?php	
+			<?php
+				
 				$first = 1;
 				$count = 4;
 				include 'polutions.php';
+
 			?>
 			</div>
 			<div class="button" id="button2" style="left:25.5%;">
-			<?php	
+			<?php
+				
 				$first = 5;
-				$count = 4;
+				$count = 4;				
 				include 'polutions.php';
+				
 			?>
 			</div>
 			<div class="button" id="button3" style="left:50.5%;">
