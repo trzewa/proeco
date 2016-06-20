@@ -49,6 +49,28 @@
 					}
 				}
 			}
+			
+			function resize(name)
+			{
+				objects = document.getElementsByClassName(cls);
+				for(var i=0; i<objects.length; ++i)
+				{
+					if(objects[i].id == name && objects[i].id == opened)
+					{
+						objects[i].style.height = "10%"
+						opened = ""
+					}
+					else if(objects[i].id == name)
+					{
+						objects[i].style.height = "95%"
+						opened = objects[i].id						
+					}
+					else
+					{
+						objects[i].style.height = "10%"
+					}
+				}
+			}
 
 			function addText(name)
 			{
@@ -98,7 +120,7 @@
 					objects[i].addEventListener('transitionend', function() {animateField(this.id);}, false)
 					objects[i].addEventListener('mouseover', function() {highlight('button',this.id)}, false)
 					objects[i].addEventListener('onmouseout', function() {fade(this.id);}, false)
-					objects[i].addEventListener('click', function() {resize('button',this.id)}, false)										
+					objects[i].addEventListener('click', function() {resize(this.id)}, false)										
 				}
 			}
 		</script>
