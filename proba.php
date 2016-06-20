@@ -42,6 +42,9 @@
 					{
 						objects[i].style.height = "100%"
 						opened = objects[i].id
+						<?
+			include("polutions.php");
+			?>
 					}
 					else
 					{
@@ -104,9 +107,7 @@
 		</script>
 		<div id="mainBody" style="width:100%;height:100%;">
 			<div class="button" id="button1" style="left:0.5%;">
-			<?
-			include("polutions.php");
-			?>
+			
 			</div>
 			<div class="button" id="button2" style="left:25.5%;">
 			</div>
