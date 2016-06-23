@@ -5,6 +5,11 @@
 	</head>
 	<body>
 		<script>
+			function stackTrace() {
+    		var err = new Error();
+    		return err.stack;
+			}
+
 			function highlight(cls, name)
 			{
 				objects = document.getElementsByClassName(cls);
@@ -30,6 +35,7 @@
 			var opened = ""
 			function resize(cls, name)
 			{
+				console.log("resize")
 				objects = document.getElementsByClassName(cls);
 				for(var i=0; i<objects.length; ++i)
 				{
@@ -50,12 +56,14 @@
 				}
 			}
 
-			function addText(name)
+			function addText(event, name)
 			{
+				if(event.propertyName != "width") //execute only if transition was on width change
+					return
 				obj = document.getElementById(name)
-				console.log(obj)
-				if(obj.innerText == "")
-					obj.innerText = name + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam molestie est sed mattis imperdiet. Vivamus molestie purus sed libero varius sagittis. Nulla cursus non arcu eget egestas. Nullam malesuada, libero lobortis malesuada commodo, tellus erat commodo arcu, a interdum nisl arcu eu felis. Morbi ultrices vel est sed porttitor. Praesent sagittis sollicitudin ante, ut tempor velit. Proin non lobortis lacus. Nulla posuere arcu sed turpis tempor tristique. Pellentesque dictum ex at venenatis consequat. In in nisl quam. Nam ex sem, consequat vel erat vel, luctus interdum est. Donec eu bibendum arcu. Phasellus vel mattis tortor. Ut semper, tortor nec tristique rutrum, justo lectus interdum nisl, vel elementum libero augue ut elit. Mauris eu mi libero."
+				if(obj.innerText == "") {
+					obj.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam molestie est sed mattis imperdiet. Vivamus molestie purus sed libero varius sagittis. Nulla cursus non arcu eget egestas. Nullam malesuada, libero lobortis malesuada commodo, tellus erat commodo arcu, a interdum nisl arcu eu felis. Morbi ultrices vel est sed porttitor. Praesent sagittis sollicitudin ante, ut tempor velit. Proin non lobortis lacus. Nulla posuere arcu sed turpis tempor tristique. Pellentesque dictum ex at venenatis consequat. In in nisl quam. Nam ex sem, consequat vel erat vel, luctus interdum est. Donec eu bibendum arcu. Phasellus vel mattis tortor. Ut semper, tortor nec tristique rutrum, justo lectus interdum nisl, vel elementum libero augue ut elit. Mauris eu mi libero."
+				}
 				else {
 					obj.innerText = ""
 				}
@@ -63,7 +71,9 @@
 
 			function addTextField(name)
 			{
+				console.log("addTextField")
 				obj = document.getElementById(name)
+				console.log(obj.firstChild)
 				if(obj.innerText == "")
 				{
 					obj.innerText = name
@@ -71,6 +81,7 @@
 					newDiv.class = "contentField"
 					newDiv.id = "contentField"
 					newDiv.style.left = obj.style.left;
+					newDiv.addEventListener('transitionend', function(event) {addText(event, "contentField"); event.stopPropagation()}, false)
 					obj.appendChild(newDiv)
 					setTimeout(function() {
 						newDiv.style.width = "100%"
@@ -79,25 +90,23 @@
 				}
 				else
 				{
+					console.log("remove parent " + obj.name)
 					obj.innerText = ""
-					obj.removeChild(document.getElementById("contentField"))
+					newDiv = document.getElementById("contentField")
+					//newDiv.style.width = "24%"
+					obj.removeChild(newDiv)
 				}
-			}
-
-			function animateField(name)
-			{
-				addTextField(name)
-				addText(content.id)
 			}
 
 			window.onload = function()
 			{
+				console.log("onload")
 			  objects = document.getElementsByClassName("button")
 				for(var i=0; i<objects.length; ++i)
 				{
-					objects[i].addEventListener('transitionend', function() {animateField(this.id);}, false)
+					objects[i].addEventListener('transitionend', function() {addTextField(this.id);}, false)
 					objects[i].addEventListener('mouseover', function() {highlight('button',this.id)}, false)
-					objects[i].addEventListener('onmouseout', function() {fade(this.id);}, false)
+					objects[i].addEventListener('mouseout', function() {fade(this.id);}, false)
 					objects[i].addEventListener('click', function() {resize('button',this.id)}, false)
 				}
 			}
