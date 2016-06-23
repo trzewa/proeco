@@ -4,9 +4,7 @@
 		<link rel="stylesheet" type="text/css" href="test.css">
 	</head>
 	<body>
-	<?
-	include 'polutions.php';
-	?>
+
 		<script>
 			function highlight(cls, name)
 			{
