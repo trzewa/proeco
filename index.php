@@ -7,6 +7,7 @@
 		<script type="text/javascript">
 		google.charts.load('current', {'packages':['gauge']});
 		google.charts.setOnLoadCallback(drawGauge);
+		
 		var gaugeOptions = {min: 0, max: 280, yellowFrom: 200, yellowTo: 250,
 		  redFrom: 250, redTo: 280, minorTicks: 5};
 		var gauge;
@@ -28,6 +29,17 @@
 		  gaugeData.setValue(0, 1, gaugeData.getValue(0, 1) + dir * 20);
 		  
 		  gauge.draw(gaugeData, gaugeOptions);
+		}
+		
+		function image() {
+			var img = document.createElement("IMG");
+			img.src = "http://www.eko-sztuka-pakowania.pl/znaki/recycling_12arr_symbols.jpg";
+			document.getElementById('pict').appendChild(img);
+		}
+		function image2() {
+			var img = document.createElement("IMG");
+			img.src = "https://s-media-cache-ak0.pinimg.com/236x/72/1d/88/721d882e88a74c5f4704c18617739207.jpg";
+			document.getElementById('pict').appendChild(img);
 		}
 	  </script>
 
@@ -88,7 +100,6 @@
 				if(event.propertyName != "width") //execute only if transition was on width change
 					return obj = document.getElementById(name)
 				if(obj.innerText == "") {
-					obj.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam molestie est sed mattis imperdiet. Vivamus molestie purus sed libero varius sagittis. Nulla cursus non arcu eget egestas. Nullam malesuada, libero lobortis malesuada commodo, tellus erat commodo arcu, a interdum nisl arcu eu felis. Morbi ultrices vel est sed porttitor. Praesent sagittis sollicitudin ante, ut tempor velit. Proin non lobortis lacus. Nulla posuere arcu sed turpis tempor tristique. Pellentesque dictum ex at venenatis consequat. In in nisl quam. Nam ex sem, consequat vel erat vel, luctus interdum est. Donec eu bibendum arcu. Phasellus vel mattis tortor. Ut semper, tortor nec tristique rutrum, justo lectus interdum nisl, vel elementum libero augue ut elit. Mauris eu mi libero."
 				}
 				else {
 					obj.innerText 
@@ -136,6 +147,21 @@
 					objects[i].addEventListener('click', function() {resize('button',this.id)}, false)
 				}
 			}
+			function show_image(src, width, height, alt) {
+			var img = document.createElement("img");
+			img.src = src;
+			img.width = width;
+			img.height = height;
+			img.alt = alt;
+
+    // This next line will just add it to the <body> tag
+    document.body.appendChild(img);
+}
+function addimage() {
+    var img = new Image();
+    img.src = "https://www.google.com/images/srpr/logo4w.png"
+    img_home.appendChild(img);
+}
 		</script>
 	</head>
 	
@@ -155,7 +181,7 @@
 			 <div id="gauge_div" style="position: absolute; top:10%; left:20%; width:280px; height: 140px;"></div>			 
 			</div>
 			<div class="button" id="button3" style="left:50.5%;">
-						
+				<div id="pict" style="position: absolute; top:10%; left:0%; width:450px; height: 140px;"> <script> image()</script><br><br><script>   image2()</script></div> 
 			</div>
 			<div class="button" id="button4" style="left:75.5%;">
 			
